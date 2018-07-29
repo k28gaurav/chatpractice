@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './index.scss';
 
-import { incrementNum, decrementNum, resetCounter } from '../../actions/counterActions';
-
-// @connect(() => { })
+import { incrementNum, decrementNum, resetCounter } from 'actions/counterActions';
 
 class Controls extends Component {
 

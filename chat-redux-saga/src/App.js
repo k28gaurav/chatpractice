@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import Counter from './modules/Counter';
+import Counter from 'modules/Counter';
 import './App.css';
 
 class App extends Component {

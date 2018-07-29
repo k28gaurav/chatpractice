@@ -2,21 +2,25 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const rules = require('./webpack/rules');
-const aliases = require('./webpack/aliases');
-//const getAbsPath = (_path) => path.resolve(__dirname, '../', _path);
+// const aliases = require('./webpack/aliases');
+const getAbsPath = function(_path) {
+    return path.resolve(__dirname, './', _path);
+}
 
 module.exports = {
     devtool: 'eval',
-    // context: getAbsPath("src"),
     //entry: ['./src/index.js'],
+    //All ./ paths are resolved relative to this
+    context: getAbsPath('src'),
+
     entry: {
-        app: ['./src/index.js'],
+        app: ['babel-polyfill', './index.js'],
     },
 
     output: {
-        // path: getAbsPath("public/dist/"),
+        path: getAbsPath('public/dist/'),
         filename: '[name].js',
-        path: path.resolve(__dirname, './public/dist')
+        // path: path.resolve(__dirname, './public/dist')
     },
 
     resolve: {
@@ -24,24 +28,29 @@ module.exports = {
             './',
             'node_modules',
         ],
-        alias: aliases
+        alias: {
+            app: getAbsPath('src'),
+            actions: getAbsPath('src/actions'),
+            reducers: getAbsPath('src/reducers'),
+            constants: getAbsPath('src/constants'),
+            apis: getAbsPath('src/apis'),
+            modules: getAbsPath('src/modules'),
+            sass: getAbsPath('src/sass'),
+        },
     },
 
     module: {
         rules: rules(),
-        loaders: [
-            {
-                test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
-            }
-        ]
     },
 
     watch: true,
 
     devServer: {
         contentBase: './public/',
-        watchContentBase: true
+        watchContentBase: true,
+        watchOptions: {
+            ignored: ['node_modules']
+        },
     },
 
     plugins: [
@@ -53,5 +62,9 @@ module.exports = {
         //     'process.env.NODE_ENV': JSON.stringify('production')
         // }),
         // new webpack.optimize.UglifyJsPlugin()
-    ]
+    ],
+
+    stats: {
+        children: false,
+    },
 };

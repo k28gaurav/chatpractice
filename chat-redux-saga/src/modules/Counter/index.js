@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Controls from './Controls';
-
+import Controls from 'modules/Counter/Controls';
 import { connect } from 'react-redux';
-// @ts-ignore
+
 import styles from './index.scss';
 
 class Counter extends Component {
@@ -19,7 +18,7 @@ class Counter extends Component {
                 <Controls />
                 <hr />
                 <span>
-                    <a href='https://github.com/Gigacore/React-Redux-Starter'>Fork it onbhj Github</a>
+                    <a href='https://github.com/Gigacore/React-Redux-Starter'>Fork it on Github</a>
                 </span>
             </div>
         );
